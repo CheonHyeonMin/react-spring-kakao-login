@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.logging.Logger;
 
+@CrossOrigin
 @RestController
 @RequestMapping("${api.path.uri}")
 @RequiredArgsConstructor
@@ -27,9 +29,10 @@ public class AuthController {
     public String Hello(){
         return "Test Working";
     }
-
+    
     @GetMapping(path="/kakaoLogin")
     public ResponseEntity<String> login(@RequestParam("code") String code, Model model) {
+    	System.out.println("통신성공");
         log.info("Authorization Code is " + code);
         String accessToken = kakaoAPI.getAccessToken(code);
         KakaoUserInfo kakaoUserInfo = null;

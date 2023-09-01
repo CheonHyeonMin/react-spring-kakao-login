@@ -34,7 +34,7 @@ public class AuthController {
     public ResponseEntity<String> login(@RequestParam("code") String code, Model model) {
     	System.out.println("통신성공");
         log.info("Authorization Code is " + code);
-        String accessToken = kakaoAPI.getAccessToken(code);
+        String accessToken = kakaoAPI.getAccessToken(code);      
         KakaoUserInfo kakaoUserInfo = null;
         if (accessToken != null && !accessToken.isEmpty()) {
             kakaoUserInfo = kakaoAPI.getUserInfo(accessToken);

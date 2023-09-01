@@ -4,6 +4,10 @@ import com.kakaoLogin.controller.AuthController;
 import com.kakaoLogin.entity.KakaoUserInfo;
 import com.nimbusds.jose.shaded.gson.JsonObject;
 import com.nimbusds.jose.shaded.gson.JsonParser;
+
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +38,11 @@ public class KakaoApi {
 
     @Value("${kakao.api.key}")
     private String KAKAO_API_KEY;
+    
+    @Value("${kakao.client.secret}")
+    private String KAKAO_CLIENT_SECRET;
+    
+    
 
     public String getAccessToken(String authorizationCode) {
 
@@ -44,9 +53,11 @@ public class KakaoApi {
         map.add("client_id", KAKAO_API_KEY);
         map.add("redirect_uri", REDIRECT_URL);
         map.add("code", authorizationCode);
+        map.add("client_secret", KAKAO_CLIENT_SECRET);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(map, headers);
 
@@ -64,7 +75,8 @@ public class KakaoApi {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(accessToken);
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(headers);
 

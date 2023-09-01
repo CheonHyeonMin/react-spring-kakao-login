@@ -9,7 +9,7 @@ function App() {
     <div>
       <Routes>
         <Route path='/' element={<Login />} />
-        <Route path='/oauth/kakao/login' element={<Callback />} />
+        <Route path='/login/oauth2/callback/kakao' element={<Callback />} />
       </Routes>
     </div>
   );

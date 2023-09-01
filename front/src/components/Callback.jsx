@@ -11,7 +11,7 @@ const Callback = () => {
   useEffect(() => {
     console.log('code :', code);
 
-    axios.get(`http://localhost:8080/api/v1/home/kakaoLogin?code=${code}`)
+    axios.get(`http://localhost:8081/api/v1/home/kakaoLogin?code=${code}`)
     .then((res) => {
       console.log(res);
     })

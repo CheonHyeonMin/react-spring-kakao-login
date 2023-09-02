@@ -2,7 +2,11 @@ package com.kakaoLogin.controller;
 
 import com.kakaoLogin.entity.KakaoUserInfo;
 import com.kakaoLogin.service.KakaoApi;
+import com.nimbusds.jose.shaded.gson.JsonObject;
+
 import lombok.RequiredArgsConstructor;
+import net.minidev.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -39,10 +43,18 @@ public class AuthController {
         if (accessToken != null && !accessToken.isEmpty()) {
             kakaoUserInfo = kakaoAPI.getUserInfo(accessToken);
             if (kakaoUserInfo != null) {
-                return ResponseEntity.ok("Login successful! " + "(Authorization code " + code + " )");
+            	
+                return ResponseEntity.ok("controller " + "(Authorization code " + code + " )");
             }
         }
+        
         model.addAttribute("kakaoUserInfo", kakaoUserInfo);
         return ResponseEntity.badRequest().body("Login failed!");
+    }
+    
+    @GetMapping(path="/getKakaoUserInfo")
+    public ResponseEntity<KakaoUserInfo> getKakaoUserInfo(@RequestParam String accessToken) {
+        KakaoUserInfo userInfo = kakaoAPI.getUserInfo(accessToken);
+        return ResponseEntity.ok(userInfo);
     }
 }

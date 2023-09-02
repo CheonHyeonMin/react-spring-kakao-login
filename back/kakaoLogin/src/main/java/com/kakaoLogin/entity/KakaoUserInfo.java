@@ -6,18 +6,18 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
+
 public class KakaoUserInfo {
 
+	String email;
     String id;
     String nickname;
-    String email;
-
+    
     @Builder
-
-    public KakaoUserInfo(String id, String nickname, String email) {
+    public KakaoUserInfo(String email, String id, String nickname) {
+    	this.email = email;
         this.id = id;
         this.nickname = nickname;
-        this.email = email;
     }
 }
 
